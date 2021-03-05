@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'calendar-ang';
+
+  currentDate: Date = new Date();
+
+  addNewDate(date: Date): void {
+    this.currentDate = date;
+  }  
 }

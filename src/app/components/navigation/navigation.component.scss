@@ -1,0 +1,44 @@
+.calendar-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 0 25px;
+
+  &__current-date {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0 50px;
+    min-width: 120px;
+    text-align: center;
+  }
+
+  &__control-button {
+    cursor: pointer;
+    display: block;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    background-size: 100%;
+    background-position: center;
+    border: none;
+    background-color: #fff;
+    background-repeat: no-repeat;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &--prev {
+      background-image: url(../../../assets/images/left-arrow.svg);
+    }
+
+    &--next {
+      background-image: url(../../../assets/images/right-arrow.svg);
+    }
+  }
+}

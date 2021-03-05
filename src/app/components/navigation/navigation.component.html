@@ -1,0 +1,8 @@
+<div class="calendar-navigation">
+    <button class='calendar-navigation__control-button calendar-navigation__control-button--prev'
+        (click)='prevMonth(); setNewDateToParent(currentNavDate)'>
+    </button>
+    <p class="calendar-navigation__current-date">{{navDate | date:"MMMM yyyy"}}</p>
+    <button class='calendar-navigation__control-button calendar-navigation__control-button--next'
+        (click)='nextMonth(); setNewDateToParent(currentNavDate)'></button>
+</div>
