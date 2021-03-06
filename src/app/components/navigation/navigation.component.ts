@@ -1,24 +1,43 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { CurrentDateService } from '../../services/current-date/current-date.service';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit, OnDestroy {
+  constructor(private dateService: CurrentDateService) {}
 
-  @Input() navDate!: Date;
-  @Output() onDateChange = new EventEmitter<Date>();
   currentNavDate!: Date;
+  subscription!: Subscription;
 
-  prevMonth() { 
-    this.currentNavDate = new Date(this.navDate.getFullYear(), this.navDate.getMonth() - 1);
+  prevMonth() {
+    this.dateService.setCurrentDate(
+      new Date(
+        this.currentNavDate.getFullYear(),
+        this.currentNavDate.getMonth() - 1
+      )
+    );
   }
-  nextMonth() { 
-    this.currentNavDate = new Date(this.navDate.getFullYear(), this.navDate.getMonth() + 1);
+  nextMonth() {
+    this.dateService.setCurrentDate(
+      new Date(
+        this.currentNavDate.getFullYear(),
+        this.currentNavDate.getMonth() + 1
+      )
+    );
   }
 
-  setNewDateToParent(newDate: Date) { 
-    this.onDateChange.emit(newDate);
+  ngOnInit() {
+    this.subscription = this.dateService.currentDate.subscribe({
+      next: (date: Date) => (this.currentNavDate = date),
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
