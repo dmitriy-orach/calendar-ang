@@ -6,13 +6,19 @@ import { dayType } from 'src/app/types';
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.scss'],
 })
-export class TeamComponent implements OnInit {
+export class TeamComponent {
   @Input() currentDate!: Date;
   @Input() counter!: number;
   @Input() team!: any;
   @Input() monthDays!: dayType[];
+  vacations: any = 'asdas';
+
+  isOpen: boolean = true;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  toggleIsOpen() {
+    this.isOpen = !this.isOpen;
+    console.log(this.isOpen);
+  }
 }
