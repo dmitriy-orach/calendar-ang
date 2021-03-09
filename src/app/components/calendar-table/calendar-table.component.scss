@@ -5,21 +5,31 @@
 }
 
 .calendar-head {
-  width: 100%;
+  width: fit-content;
+  margin: 0 auto;
+  &__row {
+    display: flex;
+  }
   &__column {
     border: 1px solid #d7d7d7;
     border-bottom: none;
     padding: 10px 3px;
     height: auto;
-    width: 33px;
+    width: 32px;
+    text-align: center;
+
+    &:not(:last-child) {
+      border-right: none;
+    }
 
     &--btn-cell {
       width: auto;
       border: none;
-      padding: 0 15px 0 0;
+      padding: 0;
+      margin-right: 2px;
       text-align: start;
       vertical-align: top;
-      min-width: 220px;
+      min-width: 230px;
     }
 
     &--sum-cell {
@@ -28,6 +38,7 @@
       font-weight: 400;
       line-height: 18px;
       background-color: #f3f3f3;
+      width: 34px;
     }
 
     &.weekend {
@@ -48,4 +59,12 @@
     font-size: 14px;
     font-weight: 600;
   }
+}
+
+app-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
 }
