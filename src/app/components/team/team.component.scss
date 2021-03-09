@@ -47,8 +47,15 @@ $orangeTeamColor: #ffa768;
     width: fit-content;
     margin: 0 auto;
 
+    &.team-first-row {
+      &.closed {
+        margin: 0 0 30px;
+        border-bottom: 1px solid #d7d7d7;
+      }
+    }
+
     &.team-last-row {
-      margin: 0 auto 30px;
+      margin: 0 0 30px;
       border-bottom: 1px solid #d7d7d7;
     }
 
@@ -129,7 +136,7 @@ $orangeTeamColor: #ffa768;
     margin-right: 20px;
   }
 
-  &__collapse {
+  &__spoiler {
     cursor: pointer;
     width: 10px;
     height: 5px;
