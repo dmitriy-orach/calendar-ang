@@ -3,4 +3,279 @@
   padding: 0 15px;
   margin: 0 auto;
   box-sizing: border-box;
+  width: 100%;
+}
+
+.calendar-head {
+  width: 100%;
+  &__column {
+    border: 1px solid #d7d7d7;
+    border-bottom: none;
+    padding: 10px 3px;
+    height: auto;
+    width: 33px;
+
+    &--btn-cell {
+      width: auto;
+      border: none;
+      padding: 0 15px 0 0;
+      text-align: start;
+      vertical-align: top;
+      min-width: 220px;
+    }
+
+    &--sum-cell {
+      vertical-align: top;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      background-color: #f3f3f3;
+    }
+
+    &.weekend {
+      background-color: #f0f0f0;
+    }
+  }
+
+  &__week-day {
+    font-size: 12px;
+    font-weight: 400;
+    display: block;
+    width: 26px;
+    margin: 0 auto 5px;
+    text-align: center;
+  }
+
+  &__month-day {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+$purpleTeamColor: #9b99ff;
+$blueTeamColor: #7aafff;
+$pinkTeamColor: #f99;
+$orangeTeamColor: #ffa768;
+
+.calendar-body {
+  width: 100%;
+  &__row {
+    width: 100%;
+    &.teamColor1 {
+      border-left: 3px solid $purpleTeamColor;
+
+      &.team-first-row {
+        td {
+          background-color: rgba($purpleTeamColor, 0.1);
+        }
+
+        .weekend {
+          background-color: rgba($purpleTeamColor, 0.1);
+        }
+
+        .sum-cell {
+          background-color: rgba($purpleTeamColor, 0.1);
+        }
+
+        .team-info-cell {
+          &__percent {
+            background-color: $purpleTeamColor;
+          }
+        }
+      }
+
+      .paid-day {
+        background-color: $purpleTeamColor;
+      }
+
+      .unpaid-day {
+        color: $purpleTeamColor;
+        border: 1px solid $purpleTeamColor;
+        background-color: rgba($purpleTeamColor, 0.1);
+      }
+    }
+
+    &.teamColor2 {
+      border-left: 3px solid $blueTeamColor;
+
+      &.team-first-row {
+        td {
+          background-color: rgba($blueTeamColor, 0.1);
+        }
+
+        .weekend {
+          background-color: rgba($blueTeamColor, 0.1);
+        }
+
+        .sum-cell {
+          background-color: rgba($blueTeamColor, 0.1);
+        }
+
+        .team-info-cell {
+          &__percent {
+            background-color: $blueTeamColor;
+          }
+        }
+      }
+
+      .paid-day {
+        background-color: $blueTeamColor;
+      }
+
+      .unpaid-day {
+        color: $blueTeamColor;
+        border: 1px solid $blueTeamColor;
+        background-color: rgba($blueTeamColor, 0.1);
+      }
+    }
+
+    &.teamColor3 {
+      border-left: 3px solid $pinkTeamColor;
+
+      &.team-first-row {
+        td {
+          background-color: rgba($pinkTeamColor, 0.1);
+        }
+
+        .weekend {
+          background-color: rgba($pinkTeamColor, 0.1);
+        }
+
+        .sum-cell {
+          background-color: rgba($pinkTeamColor, 0.1);
+        }
+
+        .team-info-cell {
+          &__percent {
+            background-color: $pinkTeamColor;
+          }
+        }
+      }
+
+      .paid-day {
+        background-color: $pinkTeamColor;
+      }
+
+      .unpaid-day {
+        color: $pinkTeamColor;
+        border: 1px solid $pinkTeamColor;
+        background-color: rgba($pinkTeamColor, 0.1);
+      }
+    }
+
+    &.teamColor4 {
+      border-left: 3px solid $orangeTeamColor;
+
+      &.team-first-row {
+        td {
+          background-color: rgba($orangeTeamColor, 0.1);
+        }
+
+        .weekend {
+          background-color: rgba($orangeTeamColor, 0.1);
+        }
+
+        .sum-cell {
+          background-color: rgba($orangeTeamColor, 0.1);
+        }
+
+        .team-info-cell {
+          &__percent {
+            background-color: $orangeTeamColor;
+          }
+        }
+      }
+
+      .paid-day {
+        background-color: $orangeTeamColor;
+      }
+
+      .unpaid-day {
+        color: $orangeTeamColor;
+        border: 1px solid $orangeTeamColor;
+        background-color: rgba($orangeTeamColor, 0.1);
+      }
+    }
+  }
+  &__first-column {
+    min-width: 190px;
+    text-align: start;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 7px 15px;
+    border: 1px solid #d7d7d7;
+  }
+
+  &__column {
+    border: 1px solid #d7d7d7;
+    width: 33px;
+    height: 33px;
+
+    &.hide {
+      display: none;
+    }
+  }
+}
+
+.team-info-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 220px;
+  max-width: 250px;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__team-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+
+  &__number-people {
+    position: relative;
+    color: #949494;
+    margin-right: 15px;
+    padding-left: 15px;
+
+    &::before {
+      display: block;
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-60%);
+      width: 12px;
+      height: 12px;
+      background-image: url(../../../assets/images/people.svg);
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &__percent {
+    font-size: 12px;
+    line-height: 16px;
+    padding: 0 5px;
+    border-radius: 2px;
+    color: #fff;
+    margin-right: 20px;
+  }
+
+  &__collapse {
+    cursor: pointer;
+    width: 10px;
+    height: 5px;
+    padding: 2px;
+    background-image: url(../../../assets/images/spoiler-arrow.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+    &.active {
+      transform: rotate(180deg);
+    }
+  }
 }

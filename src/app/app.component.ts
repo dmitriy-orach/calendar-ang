@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  currentDate: Date = new Date();
+  // currentDate: Date = new Date();
 
-  addNewDate(date: Date): void {
-    this.currentDate = date;
-  }  
+  // addNewDate(date: Date): void {
+  //   this.currentDate = date;
+  // }  
 }
