@@ -138,12 +138,13 @@ $orangeTeamColor: #ffa768;
 
   &__spoiler {
     cursor: pointer;
-    width: 10px;
-    height: 5px;
+    width: 15px;
+    height: 10px;
     padding: 2px;
     background-image: url(../../../assets/images/spoiler-arrow.svg);
     background-size: 100%;
     background-repeat: no-repeat;
+    transition: transform 0.1s ease;
 
     &.active {
       transform: rotate(180deg);

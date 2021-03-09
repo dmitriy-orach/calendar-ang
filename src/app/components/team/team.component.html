@@ -1,3 +1,4 @@
+<!-- * FIRST TEAM ROW -->
 <div class="calendar-body__row team-first-row"
     [ngClass]="['team' + (counter + 1), 'teamColor' + ((counter  % 4)+1), isOpen ? '': 'closed']">
     <div class="calendar-body__column calendar-body__column--first-column">
@@ -20,6 +21,7 @@
     <div class="calendar-body__column calendar-body__column--sum-cell  cell"></div>
 </div>
 
+<!-- * USERS ROW -->
 <ng-template [ngIf]="isOpen">
     <div class="calendar-body__row" *ngFor="let member of team.members; index as memberCounter"
         [ngClass]="['team' + (counter + 1), 'teamColor' + ((counter  % 4)+1), memberCounter === (team.members.length - 1) ? 'team-last-row': '']">
