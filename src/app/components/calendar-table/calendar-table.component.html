@@ -1,8 +1,8 @@
-<table class='calendar-table'>
+<div class='calendar-table'>
     <!-- <app-calendar-head></app-calendar-head>
     <app-calendar-body></app-calendar-body> -->
     <!-- * CALENDAR HEAD -->
-    <thead class='calendar-head'>
+    <!-- <thead class='calendar-head'>
         <tr class='calendar-head__row'>
             <th class="calendar-head__column calendar-head__column--btn-cell">
                 <app-vacation-button></app-vacation-button>
@@ -19,32 +19,11 @@
                 Sum
             </th>
         </tr>
-    </thead>
+    </thead> -->
 
     <!-- * CALENDAR BODY -->
-    <tbody class="calendar-body" *ngIf="departmentTeams">
-        <tr class="calendar-body__row team-first-row" *ngFor="let team of departmentTeams.teams; index as teamCounter"
-            [ngClass]="['team' + (teamCounter + 1), 'teamColor' + ((teamCounter  % 4)+1)]">
-            <td class="calendar-body__first-column">
-                <div class="team-info-cell">
-                    <span class="team-info-cell__team-name">{{team.name}}</span>
-                    <div class="team-info-cell__wrapper">
-                        <div class="team-info-cell__number-people">{{team.members.length}}</div>
-                        <div class="team-info-cell__percent">
-                            {{team.percentageOfAbsent[currentTableDate.getMonth()]}}%</div>
-                        <div class="team-info-cell__collapse"></div>
-                    </div>
-                </div>
-            </td>
-
-            <td *ngFor="let day of monthDays" class="calendar-body__column" [ngClass]="{
-                        'weekend': day.isWeekend
-                    }">
-            </td>
-
-            <td class="calendar-body__column calendar-body__column--sum-cell"></td>
-        </tr>
-        <!-- <app-team *ngFor="let team of departmentTeams.teams; index as teamCounter" [counter]='teamCounter' [team]='team'
-            [currentDate]='currentTableDate' [monthDays]='monthDays'></app-team> -->
-    </tbody>
-</table>
+    <div class="calendar-body" *ngIf="departmentTeams">
+        <app-team *ngFor="let team of departmentTeams.teams; index as teamCounter" [counter]='teamCounter' [team]='team'
+            [currentDate]='currentTableDate' [monthDays]='monthDays'></app-team>
+    </div>
+</div>
