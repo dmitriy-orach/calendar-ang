@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { dayType } from 'src/app/types';
+import { DayType, SingleVacationType, Team } from 'src/app/types';
 
 @Component({
   selector: 'app-team',
@@ -9,11 +9,11 @@ import { dayType } from 'src/app/types';
 export class TeamComponent {
   @Input() currentDate!: Date;
   @Input() counter!: number;
-  @Input() team!: any;
-  @Input() monthDays!: dayType[];
-  vacations: any = 'asdas';
+  @Input() team!: Team;
+  @Input() monthDays!: DayType[];
 
   isOpen: boolean = true;
+  userVacation!: SingleVacationType;
 
   constructor() {}
 

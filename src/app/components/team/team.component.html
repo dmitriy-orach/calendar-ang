@@ -26,9 +26,12 @@
     <div class="calendar-body__row" *ngFor="let member of team.members; index as memberCounter"
         [ngClass]="['team' + (counter + 1), 'teamColor' + ((counter  % 4)+1), memberCounter === (team.members.length - 1) ? 'team-last-row': '']">
         <div class="calendar-body__column calendar-body__column--first-column">{{member.name}}</div>
-        <div *ngFor="let day of monthDays" class="calendar-body__column" [ngClass]="{
+        <div *ngFor="let day of monthDays; index as cellCounter" class="calendar-body__column" [ngClass]="{
                                 'weekend': day.isWeekend
                             }">
+            <app-user-vacation [vacations]='member.vacations' [currentDate]='currentDate' [counter]='cellCounter + 1'>
+            </app-user-vacation>
+
         </div>
         <div class="calendar-body__column calendar-body__column--sum-cell"></div>
     </div>

@@ -7,6 +7,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { CalendarTableComponent } from './components/calendar-table/calendar-table.component';
 import { VacationButtonComponent } from './components/vacation-button/vacation-button.component';
 import { TeamComponent } from './components/team/team.component';
+import { UserVacationComponent } from './components/user-vacation/user-vacation.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TeamComponent } from './components/team/team.component';
     CalendarTableComponent,
     VacationButtonComponent,
     TeamComponent,
+    UserVacationComponent,
   ],
   imports: [BrowserModule, HttpClientModule],
   providers: [],
