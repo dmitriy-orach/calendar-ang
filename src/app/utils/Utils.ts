@@ -32,7 +32,7 @@ export default class Utils {
     return monthDays;
   }
 
-  public static getUserVacations(vacations: UserVacation[]): VacationType[] {
+  public static getParsedVacations(vacations: UserVacation[]): VacationType[] {
     const userVacations: VacationType[] = [];
     vacations.forEach((vacation) => {
       userVacations.push({
@@ -50,8 +50,9 @@ export default class Utils {
     calcType: string,
     vacationItem: VacationType,
     currentDate: Date
-  ): number {
+  ): any {
     let vacationLength = 0;
+    let startDay = 0;
     switch (calcType) {
       case 'start':
         vacationLength =
@@ -62,24 +63,26 @@ export default class Utils {
           ).getDate() +
           1 -
           vacationItem.startDay;
+        startDay = vacationItem.startDay;
         break;
 
       case 'end':
         vacationLength = vacationItem.endDay;
+        startDay = 1;
         break;
 
       case 'regular':
         vacationLength = vacationItem.endDay + 1 - vacationItem.startDay;
+        startDay = vacationItem.startDay;
         break;
 
       default:
         break;
     }
-    return vacationLength;
+    return { startDay, vacationLength };
   }
 
-  public static getSingleVacation(
-    cellNumber: number,
+  public static getCurrentMonthVacation(
     userVacations: VacationType[],
     currentDate: Date
   ): SingleVacationType | undefined {
@@ -91,47 +94,48 @@ export default class Utils {
       if (vacationItem.startMonth !== vacationItem.endMonth) {
         // *CALCULATING FROM START DAY TO LAST MONTH DAY
         if (vacationItem.startMonth === currentDate.getMonth() + 1) {
-          if (cellNumber === vacationItem.startDay) {
-            singleVacation = {
-              vacationLength: this.vacLengthCalc(
-                'start',
-                vacationItem,
-                currentDate
-              ),
-              vacationType: vacationItem.type,
-              labelDirection: 'left',
-            };
-          }
-        }
-
-        // *CALCULATING FROM FIRST MONTH DAY TO END DAY
-        if (vacationItem.endMonth === currentDate.getMonth() + 1) {
-          if (cellNumber === vacationItem.endDay) {
-            singleVacation = {
-              vacationLength: this.vacLengthCalc(
-                'end',
-                vacationItem,
-                currentDate
-              ),
-              vacationType: vacationItem.type,
-              labelDirection: 'right',
-            };
-          }
-        }
-      }
-      // * REGULAR VACATION LENGTH CALCULATING
-      else if (vacationItem.startMonth === currentDate.getMonth() + 1) {
-        if (cellNumber === vacationItem.startDay) {
+          // tslint:disable-next-line:one-variable-per-declaration
+          const { startDay, vacationLength } = this.vacLengthCalc(
+            'start',
+            vacationItem,
+            currentDate
+          );
           singleVacation = {
-            vacationLength: this.vacLengthCalc(
-              'regular',
-              vacationItem,
-              currentDate
-            ),
+            startDay,
+            vacationLength,
             vacationType: vacationItem.type,
             labelDirection: 'left',
           };
         }
+
+        // *CALCULATING FROM FIRST MONTH DAY TO END DAY
+        if (vacationItem.endMonth === currentDate.getMonth() + 1) {
+          const { startDay, vacationLength } = this.vacLengthCalc(
+            'end',
+            vacationItem,
+            currentDate
+          );
+          singleVacation = {
+            startDay,
+            vacationLength,
+            vacationType: vacationItem.type,
+            labelDirection: 'right',
+          };
+        }
+      }
+      // * REGULAR VACATION LENGTH CALCULATING
+      else if (vacationItem.startMonth === currentDate.getMonth() + 1) {
+        const { startDay, vacationLength } = this.vacLengthCalc(
+          'regular',
+          vacationItem,
+          currentDate
+        );
+        singleVacation = {
+          startDay,
+          vacationLength,
+          vacationType: vacationItem.type,
+          labelDirection: 'left',
+        };
       }
     });
 

@@ -13,6 +13,7 @@ export interface VacationType extends Object {
 }
 
 export interface SingleVacationType extends Object {
+  startDay: number;
   vacationLength: number;
   vacationType: string;
   labelDirection: string;

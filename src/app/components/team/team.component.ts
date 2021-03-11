@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./team.component.scss'],
 })
 export class TeamComponent implements OnInit, OnDestroy {
-  @Input() counter!: number;
+  @Input() teamCounter!: number;
   @Input() team!: Team;
   @Input() monthDays!: DayType[];
 

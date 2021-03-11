@@ -27,7 +27,7 @@
   <div class="calendar-body" *ngIf="departmentTeams">
     <app-team
       *ngFor="let team of departmentTeams.teams; index as teamCounter"
-      [counter]="teamCounter"
+      [teamCounter]="teamCounter"
       [team]="team"
       [monthDays]="monthDays"
     ></app-team>
