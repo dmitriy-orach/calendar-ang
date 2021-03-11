@@ -1,2 +1,7 @@
-<div *ngIf='userVacation' [ngClass]="[userVacation.vacationType === 'Paid' ? 'paid-day' : 'unpaid-day']"
-    [ngStyle]="styleLabel()">{{userVacation.vacationType === 'Paid' ? 'Pd': 'UnPd'}}</div>
+<div
+  *ngIf="userVacation"
+  [ngClass]="[userVacation.vacationType === 'Paid' ? 'paid-day' : 'unpaid-day']"
+  [ngStyle]="styleLabel()"
+>
+  {{ userVacation.vacationType === "Paid" ? "Pd" : "UnPd" }}
+</div>
