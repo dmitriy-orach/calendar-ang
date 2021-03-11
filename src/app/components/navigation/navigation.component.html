@@ -1,7 +1,13 @@
 <div class="calendar-navigation">
-    <button class='calendar-navigation__control-button calendar-navigation__control-button--prev'
-        (click)='prevMonth()'></button>
-    <p class="calendar-navigation__current-date">{{currentNavDate | date:"MMMM yyyy"}}</p>
-    <button class='calendar-navigation__control-button calendar-navigation__control-button--next'
-        (click)='nextMonth()'></button>
+  <button
+    class="calendar-navigation__control-button calendar-navigation__control-button--prev"
+    (click)="prevMonth()"
+  ></button>
+  <p class="calendar-navigation__current-date">
+    {{ currentNavDate | date: "MMMM yyyy" }}
+  </p>
+  <button
+    class="calendar-navigation__control-button calendar-navigation__control-button--next"
+    (click)="nextMonth()"
+  ></button>
 </div>

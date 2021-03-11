@@ -11,9 +11,9 @@ export default class Utils {
   }
 
   public static getDaysOfMonth(date: Date, daysAmount: number): DayType[] {
-    let monthDays: DayType[] = [];
+    const monthDays: DayType[] = [];
     for (let dayCounter = 1; dayCounter <= daysAmount; dayCounter++) {
-      const [dayNum, weekDay] = new Date(
+      const [dayNumber, weekDay] = new Date(
         date.getFullYear(),
         date.getMonth(),
         dayCounter
@@ -24,9 +24,9 @@ export default class Utils {
         })
         .split(' ');
       monthDays.push({
-        weekDay: weekDay,
-        dayNum: dayNum,
-        isWeekend: weekDay === 'Sat' || weekDay === 'Sun' ? true : false,
+        weekDay,
+        dayNumber,
+        isWeekend: weekDay === 'Sat' || weekDay === 'Sun',
       });
     }
     return monthDays;
@@ -51,7 +51,7 @@ export default class Utils {
     vacationItem: VacationType,
     currentDate: Date
   ): number {
-    let vacationLength: number = 0;
+    let vacationLength = 0;
     switch (calcType) {
       case 'start':
         vacationLength =
@@ -82,13 +82,14 @@ export default class Utils {
     cellNumber: number,
     userVacations: VacationType[],
     currentDate: Date
-  ): SingleVacationType {
-    let singleVacation!: SingleVacationType;
+  ): SingleVacationType | undefined {
+    let singleVacation: SingleVacationType | undefined;
+    singleVacation = undefined;
 
     userVacations.forEach((vacationItem) => {
-      //* START DAY AND END DAY OF VACATION ARE IN DIFFERENT MONTHS
+      // * START DAY AND END DAY OF VACATION ARE IN DIFFERENT MONTHS
       if (vacationItem.startMonth !== vacationItem.endMonth) {
-        //*CALCULATING FROM START DAY TO LAST MONTH DAY
+        // *CALCULATING FROM START DAY TO LAST MONTH DAY
         if (vacationItem.startMonth === currentDate.getMonth() + 1) {
           if (cellNumber === vacationItem.startDay) {
             singleVacation = {
@@ -103,7 +104,7 @@ export default class Utils {
           }
         }
 
-        //*CALCULATING FROM FIRST MONTH DAY TO END DAY
+        // *CALCULATING FROM FIRST MONTH DAY TO END DAY
         if (vacationItem.endMonth === currentDate.getMonth() + 1) {
           if (cellNumber === vacationItem.endDay) {
             singleVacation = {
@@ -118,7 +119,7 @@ export default class Utils {
           }
         }
       }
-      //* REGULAR VACATION LENGTH CALCULATING
+      // * REGULAR VACATION LENGTH CALCULATING
       else if (vacationItem.startMonth === currentDate.getMonth() + 1) {
         if (cellNumber === vacationItem.startDay) {
           singleVacation = {

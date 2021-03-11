@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DayType } from 'src/app/types';
+import { DayType, TeamsDataType } from 'src/app/types';
 import Utils from 'src/app/utils/Utils';
 import { CurrentDateService } from '../../services/current-date/current-date.service';
 import { TeamDataService } from '../../services/team-data/team-data.service';
@@ -20,11 +20,11 @@ export class CalendarTableComponent implements OnInit, OnDestroy {
   currentTableDate!: Date;
   monthDays!: DayType[];
   daysAmount!: number;
-  departmentTeams!: any;
+  departmentTeams!: TeamsDataType;
   dateSubscription!: Subscription;
   teamsDataSubscription!: Subscription;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dateSubscription = this.dateService.currentDate.subscribe({
       next: (date: Date) => {
         this.currentTableDate = date;
@@ -40,13 +40,13 @@ export class CalendarTableComponent implements OnInit, OnDestroy {
       .putTeamsData()
       .subscribe({
         next: (data) => {
-          this.departmentTeams = data;
+          this.departmentTeams = data as TeamsDataType;
         },
         error: () => alert('Data was not loaded!'),
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
     this.teamsDataSubscription.unsubscribe();
   }

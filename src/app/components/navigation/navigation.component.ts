@@ -14,7 +14,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   currentNavDate!: Date;
   subscription!: Subscription;
 
-  prevMonth() {
+  prevMonth(): void {
     this.dateService.setCurrentDate(
       new Date(
         this.currentNavDate.getFullYear(),
@@ -22,7 +22,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       )
     );
   }
-  nextMonth() {
+  nextMonth(): void {
     this.dateService.setCurrentDate(
       new Date(
         this.currentNavDate.getFullYear(),
@@ -31,13 +31,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription = this.dateService.currentDate.subscribe({
       next: (date: Date) => (this.currentNavDate = date),
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }

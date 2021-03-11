@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DayType, SingleVacationType, VacationType } from 'src/app/types';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { SingleVacationType, UserVacation, VacationType } from 'src/app/types';
 import Utils from 'src/app/utils/Utils';
 
 @Component({
@@ -8,13 +8,14 @@ import Utils from 'src/app/utils/Utils';
   styleUrls: ['./user-vacation.component.scss'],
 })
 export class UserVacationComponent implements OnInit {
-  @Input() vacations!: any;
+  @Input() vacations!: UserVacation[];
   @Input() currentDate!: Date;
   @Input() currentCell!: number;
   @Input() counter!: number;
 
+  @Output() vacationInitEvent = new EventEmitter<SingleVacationType>();
   userVacations!: VacationType[];
-  userVacation!: SingleVacationType;
+  userVacation!: SingleVacationType | undefined;
 
   constructor() {}
 
@@ -24,9 +25,10 @@ export class UserVacationComponent implements OnInit {
       Utils.getUserVacations(this.vacations),
       this.currentDate
     );
+    this.sendVacationToParent(this.userVacation);
   }
 
-  styleLabel() {
+  styleLabel(): object | null {
     if (this.userVacation) {
       if (this.userVacation.labelDirection === 'left') {
         return {
@@ -41,5 +43,9 @@ export class UserVacationComponent implements OnInit {
       }
     }
     return null;
+  }
+
+  sendVacationToParent(value: SingleVacationType | undefined): void {
+    this.vacationInitEvent.emit(value);
   }
 }

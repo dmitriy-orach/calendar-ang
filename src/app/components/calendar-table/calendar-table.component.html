@@ -1,27 +1,35 @@
-<div class='calendar-table'>
-    <!-- * CALENDAR HEAD -->
-    <div class='calendar-head'>
-        <div class='calendar-head__row'>
-            <div class="calendar-head__column calendar-head__column--btn-cell">
-                <app-vacation-button></app-vacation-button>
-            </div>
+<div class="calendar-table">
+  <!-- * CALENDAR HEAD -->
+  <div class="calendar-head">
+    <div class="calendar-head__row">
+      <div class="calendar-head__column calendar-head__column--btn-cell">
+        <app-vacation-button></app-vacation-button>
+      </div>
 
-            <div *ngFor="let day of monthDays" class="calendar-head__column" [ngClass]="{
-                'weekend': day.isWeekend
-            }">
-                <span class="calendar-head__week-day">{{day.weekDay}}</span>
-                <span class="calendar-head__month-day">{{day.dayNum}}</span>
-            </div>
+      <div
+        *ngFor="let day of monthDays"
+        class="calendar-head__column"
+        [ngClass]="{
+          weekend: day.isWeekend
+        }"
+      >
+        <span class="calendar-head__week-day">{{ day.weekDay }}</span>
+        <span class="calendar-head__month-day">{{ day.dayNumber }}</span>
+      </div>
 
-            <div class="calendar-head__column calendar-head__column--sum-cell">
-                Sum
-            </div>
-        </div>
+      <div class="calendar-head__column calendar-head__column--sum-cell">
+        Sum
+      </div>
     </div>
+  </div>
 
-    <!-- * CALENDAR BODY -->
-    <div class="calendar-body" *ngIf="departmentTeams">
-        <app-team *ngFor="let team of departmentTeams.teams; index as teamCounter" [counter]='teamCounter' [team]='team'
-            [currentDate]='currentTableDate' [monthDays]='monthDays'></app-team>
-    </div>
+  <!-- * CALENDAR BODY -->
+  <div class="calendar-body" *ngIf="departmentTeams">
+    <app-team
+      *ngFor="let team of departmentTeams.teams; index as teamCounter"
+      [counter]="teamCounter"
+      [team]="team"
+      [monthDays]="monthDays"
+    ></app-team>
+  </div>
 </div>
