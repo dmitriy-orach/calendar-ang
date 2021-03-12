@@ -1,47 +1,48 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  DayType,
-  SingleVacationType,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  MonthDay,
+  ResultVacation,
   Team,
   User,
   UserVacation,
 } from '../../types';
 import Utils from '../../utils/Utils';
-import { CurrentDateService } from '../../services/current-date/current-date.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
-export class UserComponent implements OnInit, OnDestroy {
+export class UserComponent implements OnInit, OnChanges {
   @Input() teamCounter!: number;
   @Input() memberCounter!: number;
   @Input() team!: Team;
   @Input() member!: User;
-  @Input() monthDays!: DayType[];
+  @Input() monthDays!: MonthDay[];
   @Input() userVacations!: UserVacation[];
+  @Input() currentDate!: Date;
 
-  currentVacation!: SingleVacationType | undefined;
-  currentDate!: Date;
-  dateSubscription!: Subscription;
+  currentVacation!: ResultVacation | undefined;
 
-  constructor(private dateService: CurrentDateService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.dateSubscription = this.dateService.currentDate.subscribe({
-      next: (date) => {
-        this.currentDate = date;
-        this.currentVacation = Utils.getCurrentMonthVacation(
-          Utils.getParsedVacations(this.userVacations),
-          this.currentDate
-        );
-      },
-    });
+    this.currentVacation = Utils.getCurrentMonthVacation(
+      this.userVacations,
+      this.currentDate
+    );
   }
 
-  ngOnDestroy(): void {
-    this.dateSubscription.unsubscribe();
+  ngOnChanges(changes: SimpleChanges): void {
+    this.currentVacation = Utils.getCurrentMonthVacation(
+      this.userVacations,
+      changes.currentDate.currentValue
+    );
   }
 }

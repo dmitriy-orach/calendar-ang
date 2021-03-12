@@ -1,17 +1,25 @@
-import {
-  DayType,
-  SingleVacationType,
-  UserVacation,
-  VacationType,
-} from '../types';
+import { MonthDay, ResultVacation, UserVacation } from '../types';
+
+type CalcType = {
+  startDay: number;
+  vacationLength: number;
+};
+
+type ParsedVacationType = {
+  startDay: number;
+  startMonth: number;
+  endDay: number;
+  endMonth: number;
+  type: string;
+};
 
 export default class Utils {
   public static calcDaysAmount(date: Date): number {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   }
 
-  public static getDaysOfMonth(date: Date, daysAmount: number): DayType[] {
-    const monthDays: DayType[] = [];
+  public static getDaysOfMonth(date: Date, daysAmount: number): MonthDay[] {
+    const monthDays: MonthDay[] = [];
     for (let dayCounter = 1; dayCounter <= daysAmount; dayCounter++) {
       const [dayNumber, weekDay] = new Date(
         date.getFullYear(),
@@ -32,8 +40,10 @@ export default class Utils {
     return monthDays;
   }
 
-  public static getParsedVacations(vacations: UserVacation[]): VacationType[] {
-    const userVacations: VacationType[] = [];
+  public static getParsedVacations(
+    vacations: UserVacation[]
+  ): ParsedVacationType[] {
+    const userVacations: ParsedVacationType[] = [];
     vacations.forEach((vacation) => {
       userVacations.push({
         startDay: Number.parseInt(vacation.startDate.split('.')[0], 10),
@@ -48,9 +58,9 @@ export default class Utils {
 
   public static vacLengthCalc(
     calcType: string,
-    vacationItem: VacationType,
+    vacationItem: ParsedVacationType,
     currentDate: Date
-  ): any {
+  ): CalcType {
     let vacationLength = 0;
     let startDay = 0;
     switch (calcType) {
@@ -83,13 +93,14 @@ export default class Utils {
   }
 
   public static getCurrentMonthVacation(
-    userVacations: VacationType[],
+    userVacations: UserVacation[],
     currentDate: Date
-  ): SingleVacationType | undefined {
-    let singleVacation: SingleVacationType | undefined;
+  ): ResultVacation | undefined {
+    let singleVacation: ResultVacation | undefined;
     singleVacation = undefined;
+    const parsedUserVacations = this.getParsedVacations(userVacations);
 
-    userVacations.forEach((vacationItem) => {
+    parsedUserVacations.forEach((vacationItem) => {
       // * START DAY AND END DAY OF VACATION ARE IN DIFFERENT MONTHS
       if (vacationItem.startMonth !== vacationItem.endMonth) {
         // *CALCULATING FROM START DAY TO LAST MONTH DAY
@@ -104,7 +115,6 @@ export default class Utils {
             startDay,
             vacationLength,
             vacationType: vacationItem.type,
-            labelDirection: 'left',
           };
         }
 
@@ -119,7 +129,6 @@ export default class Utils {
             startDay,
             vacationLength,
             vacationType: vacationItem.type,
-            labelDirection: 'right',
           };
         }
       }
@@ -134,7 +143,6 @@ export default class Utils {
           startDay,
           vacationLength,
           vacationType: vacationItem.type,
-          labelDirection: 'left',
         };
       }
     });

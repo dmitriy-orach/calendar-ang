@@ -30,15 +30,8 @@
         {{ currentVacation.vacationType === "Paid" ? "Pd" : "UnPd" }}
       </div>
     </ng-template>
-    <!--      <app-user-vacation-->
-    <!--        (vacationInitEvent)="addVacation($event)"-->
-    <!--        [vacations]="member.vacations"-->
-    <!--        [currentDate]="currentDate"-->
-    <!--        [counter]="cellCounter + 1"-->
-    <!--      >-->
-    <!--      </app-user-vacation>-->
   </div>
   <div class="calendar-body__column calendar-body__column--sum-cell">
-    {{ currentVacation ? currentVacation.vacationLength : "" }}
+    <span *ngIf="currentVacation">{{ currentVacation.vacationLength }}</span>
   </div>
 </div>

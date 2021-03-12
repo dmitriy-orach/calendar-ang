@@ -3,29 +3,11 @@ $blueTeamColor: #7aafff;
 $pinkTeamColor: #f99;
 $orangeTeamColor: #ffa768;
 
-@mixin teamColor($teamNumber, $teamColor) {
+@import "../shared-styles";
+
+@mixin teamUserRowColor($teamNumber, $teamColor) {
   &.teamColor#{$teamNumber} {
     border-left: 3px solid $teamColor;
-
-    &.team-first-row {
-      div.cell {
-        background-color: rgba($teamColor, 0.1);
-      }
-
-      .weekend {
-        background-color: rgba($teamColor, 0.1);
-      }
-
-      .sum-cell {
-        background-color: rgba($teamColor, 0.1);
-      }
-
-      .team-info-cell {
-        &__percent {
-          background-color: $teamColor;
-        }
-      }
-    }
 
     div.paid-day {
       background-color: $teamColor;
@@ -41,54 +23,33 @@ $orangeTeamColor: #ffa768;
 
 .calendar-body {
   &__row {
-    display: flex;
-    border: 1px solid #d7d7d7;
-    border-bottom: none;
-    width: fit-content;
-    margin: 0 auto;
-
-    &.team-first-row {
-      &.closed {
-        margin: 0 0 30px;
-        border-bottom: 1px solid #d7d7d7;
-      }
-    }
-
+    @extend %table-row;
     &.team-last-row {
       margin: 0 0 30px;
       border-bottom: 1px solid #d7d7d7;
     }
 
-    @include teamColor(1, $purpleTeamColor);
-    @include teamColor(2, $blueTeamColor);
-    @include teamColor(3, $pinkTeamColor);
-    @include teamColor(4, $orangeTeamColor);
+    @include teamUserRowColor(1, $purpleTeamColor);
+    @include teamUserRowColor(2, $blueTeamColor);
+    @include teamUserRowColor(3, $pinkTeamColor);
+    @include teamUserRowColor(4, $orangeTeamColor);
   }
   &__column {
-    position: relative;
-    border-right: 1px solid #d7d7d7;
-    min-width: 32px;
-    height: 32px;
+    @extend %table-column;
 
     &--first-column {
-      min-width: 235px;
-      text-align: start;
-      font-weight: 400;
-      font-size: 12px;
-      padding: 7px 15px;
-      border-bottom: none;
+      @extend %first-column;
     }
 
     &--sum-cell {
+      @extend %sum-cell;
       display: flex;
-      align-items: center;
       justify-content: center;
-      border: none;
-      background-color: #f0f0f0;
+      align-items: center;
     }
 
     &.weekend {
-      background-color: #f0f0f0;
+      @extend %weekend;
     }
   }
 }
