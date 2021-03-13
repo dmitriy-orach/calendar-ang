@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VacationButtonComponent } from './vacation-button.component';
+import { ModalWindowComponent } from './modal-window.component';
 
-describe('VacationButtonComponent', () => {
-  let component: VacationButtonComponent;
-  let fixture: ComponentFixture<VacationButtonComponent>;
+describe('ModalWindowComponent', () => {
+  let component: ModalWindowComponent;
+  let fixture: ComponentFixture<ModalWindowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VacationButtonComponent ]
+      declarations: [ ModalWindowComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VacationButtonComponent);
+    fixture = TestBed.createComponent(ModalWindowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

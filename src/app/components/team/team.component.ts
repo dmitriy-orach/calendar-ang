@@ -34,7 +34,6 @@ export class TeamComponent implements OnInit, OnDestroy {
 
   addVacation(newVacation: SingleVacationType): void {
     this.userVacation = newVacation;
-    console.log(this.userVacation);
   }
 
   ngOnDestroy(): void {
