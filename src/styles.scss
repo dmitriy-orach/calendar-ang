@@ -38,3 +38,6 @@ $orangeTeamColor: #ffa768;
 @include vacColor(2, $blueTeamColor);
 @include vacColor(3, $pinkTeamColor);
 @include vacColor(4, $orangeTeamColor);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
