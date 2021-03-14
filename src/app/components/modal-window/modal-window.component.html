@@ -1,37 +1,55 @@
-<div class="modalWindow">
-    <div>
-        <header class="modalWindow__header">
-            <h3>Vacation Request</h3>
-            <span>8 Days</span>
-        </header>
-        <div class="modalWindow__body">
-            <div class="choose">
-                <span class="headText">Dates</span>
-                <input name="startDate" type="date"/>
-                <input name="endDate" type="date"/>
-            </div>
-            <div class="choose">
-                <span lass="headText">Team</span>
-                <select name="Team" id="">
-                    <option value="">Team name</option>
-                </select>
-            </div>
-            <div class="choose">
-                <span lass="headText">User</span>
-                <select name="User" id="">
-                    <option value="">User name</option>
-                </select>
-            </div>
-            <div class="choose">
-                <span lass="headText">Vac Type</span>
-                <select name="Vac" id="">
-                    <option value="">Paid Day Off (PD)</option>
-                </select>
-            </div>
-            <div class="buttonsBlock">
-                <button id="close" class="buttonsBlock__Cancel" (click)="closeDialog()">Cancel</button>
-                <button class="buttonsBlock__Send">Send</button>
-            </div>
+<div class="modalWindow" [formGroup]="form">
+  <div>
+    <header class="modalWindow__header">
+      <h3>Vacation Request</h3>
+      <span *ngIf="selectedDays">{{ selectedDays }} Days</span>
+    </header>
+    <div class="modalWindow__body">
+      <div class="choose">
+        <span class="headText">Dates</span>
+        <input name="startDate" formControlName="from" type="date" />
+        <input name="endDate" formControlName="to" type="date" />
+      </div>
+      <div class="choose">
+        <span class="headText">Team</span>
+        <select formControlName="team" name="Team" id="">
+          <option *ngFor="let d of data" [ngValue]="d">{{ d.name }}</option>
+        </select>
+
+        <div *ngIf="teamControl.touched && teamControl.invalid">
+          Select team please
         </div>
+      </div>
+      <div *ngIf="teamControl" class="choose">
+        <span class="headText">User</span>
+        <select formControlName="userName" name="User" id="">
+          <option
+            *ngFor="let n of teamControl.value.members"
+            [ngValue]="n.name"
+          >
+            {{ n.name }}
+          </option>
+        </select>
+        <div *ngIf="userNameControl.touched && userNameControl.invalid">
+          Select user please
+        </div>
+      </div>
+      <div class="choose">
+        <span class="headText">Vac Type</span>
+        <select formControlName="type" name="Vac" id="">
+          <option value="Paid">Paid Day Off (PD)</option>
+          <option value="UnPaid">Unpaid Day Off (UPD)</option>
+        </select>
+        <div *ngIf="typeControl.touched && typeControl.invalid">
+          Select type please
+        </div>
+      </div>
+      <div class="buttonsBlock">
+        <button id="close" class="buttonsBlock__Cancel" (click)="closeDialog()">
+          Cancel
+        </button>
+        <button class="buttonsBlock__Send" (click)="send()">Send</button>
+      </div>
     </div>
+  </div>
 </div>
