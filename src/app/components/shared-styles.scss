@@ -1,0 +1,35 @@
+$purpleTeamColor: #9b99ff;
+$blueTeamColor: #7aafff;
+$pinkTeamColor: #f99;
+$orangeTeamColor: #ffa768;
+
+%table-row {
+  display: flex;
+  border: 1px solid #d7d7d7;
+  border-bottom: none;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+%table-column {
+  position: relative;
+  border-right: 1px solid #d7d7d7;
+  min-width: 32px;
+  height: 32px;
+}
+%first-column {
+  min-width: 235px;
+  text-align: start;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 7px 15px;
+  border-bottom: none;
+}
+%sum-cell {
+  border: none;
+  background-color: #f0f0f0;
+}
+//
+%weekend {
+  background-color: #f0f0f0;
+}

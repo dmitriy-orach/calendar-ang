@@ -2,8 +2,8 @@
 <div
   class="calendar-body__row team-first-row"
   [ngClass]="[
-    'team' + (counter + 1),
-    'teamColor' + ((counter % 4) + 1),
+    'team' + (teamCounter + 1),
+    'teamColor' + ((teamCounter % 4) + 1),
     isOpen ? '' : 'closed'
   ]"
 >
@@ -39,33 +39,14 @@
 
 <!-- * USERS ROWS -->
 <ng-template [ngIf]="isOpen">
-  <div
-    class="calendar-body__row"
+  <app-user
     *ngFor="let member of team.members; index as memberCounter"
-    [ngClass]="[
-      'team' + (counter + 1),
-      'teamColor' + ((counter % 4) + 1),
-      memberCounter === team.members.length - 1 ? 'team-last-row' : ''
-    ]"
-  >
-    <div class="calendar-body__column calendar-body__column--first-column">
-      {{ member.name }}
-    </div>
-    <div
-      *ngFor="let day of monthDays; index as cellCounter"
-      class="calendar-body__column"
-      [ngClass]="{
-        weekend: day.isWeekend
-      }"
-    >
-      <app-user-vacation
-        (vacationInitEvent)="addVacation($event)"
-        [vacations]="member.vacations"
-        [currentDate]="currentDate"
-        [counter]="cellCounter + 1"
-      >
-      </app-user-vacation>
-    </div>
-    <div class="calendar-body__column calendar-body__column--sum-cell"></div>
-  </div>
+    [memberCounter]="memberCounter"
+    [teamCounter]="teamCounter"
+    [member]="member"
+    [monthDays]="monthDays"
+    [team]="team"
+    [userVacations]="member.vacations"
+    [currentDate]="currentDate"
+  ></app-user>
 </ng-template>

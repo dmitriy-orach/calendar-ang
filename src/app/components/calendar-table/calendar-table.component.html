@@ -1,6 +1,11 @@
 <div class="calendar-table">
   <!-- * CALENDAR HEAD -->
-  <div class="calendar-head">
+  <div
+    class="calendar-head"
+    [ngClass]="{
+      closed: !departmentTeams
+    }"
+  >
     <div class="calendar-head__row">
       <div class="calendar-head__column calendar-head__column--btn-cell">
         <button class="calendar-head__add-vacation-button" (click)="onCreate()">Add Vacation</button>
@@ -24,12 +29,17 @@
   </div>
 
   <!-- * CALENDAR BODY -->
-  <div class="calendar-body" *ngIf="departmentTeams">
+  <div class="calendar-body" *ngIf="departmentTeams; else dataLoadAlert">
     <app-team
       *ngFor="let team of departmentTeams.teams; index as teamCounter"
-      [counter]="teamCounter"
+      [teamCounter]="teamCounter"
       [team]="team"
       [monthDays]="monthDays"
+      [currentDate]="currentTableDate"
     ></app-team>
   </div>
+
+  <ng-template #dataLoadAlert>
+    <p class="data-load-alert">Teams' data was not load!</p>
+  </ng-template>
 </div>

@@ -1,0 +1,76 @@
+$purpleTeamColor: #9b99ff;
+$blueTeamColor: #7aafff;
+$pinkTeamColor: #f99;
+$orangeTeamColor: #ffa768;
+
+@import "../shared-styles";
+
+@mixin teamUserRowColor($teamNumber, $teamColor) {
+  &.teamColor#{$teamNumber} {
+    border-left: 3px solid $teamColor;
+
+    div.paid-day {
+      background-color: $teamColor;
+    }
+
+    div.unpaid-day {
+      color: $teamColor;
+      border: 1px solid $teamColor;
+      background-color: rgba($teamColor, 0.1);
+    }
+  }
+}
+
+.calendar-body {
+  &__row {
+    @extend %table-row;
+    &.team-last-row {
+      margin: 0 0 30px;
+      border-bottom: 1px solid #d7d7d7;
+    }
+
+    @include teamUserRowColor(1, $purpleTeamColor);
+    @include teamUserRowColor(2, $blueTeamColor);
+    @include teamUserRowColor(3, $pinkTeamColor);
+    @include teamUserRowColor(4, $orangeTeamColor);
+  }
+  &__column {
+    @extend %table-column;
+
+    &--first-column {
+      @extend %first-column;
+    }
+
+    &--sum-cell {
+      @extend %sum-cell;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.weekend {
+      @extend %weekend;
+    }
+  }
+}
+
+.paid-day,
+.unpaid-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 30px;
+  left: 1px;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  text-align: center;
+  font-size: 12px;
+  background-color: #000;
+}
+
+.paid-day {
+  color: white;
+}

@@ -1,17 +1,25 @@
-import {
-  DayType,
-  SingleVacationType,
-  UserVacation,
-  VacationType,
-} from '../types';
+import { MonthDay, ResultVacation, UserVacation } from '../types';
+
+type CalcType = {
+  startDay: number;
+  vacationLength: number;
+};
+
+type ParsedVacationType = {
+  startDay: number;
+  startMonth: number;
+  endDay: number;
+  endMonth: number;
+  type: string;
+};
 
 export default class Utils {
   public static calcDaysAmount(date: Date): number {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   }
 
-  public static getDaysOfMonth(date: Date, daysAmount: number): DayType[] {
-    const monthDays: DayType[] = [];
+  public static getDaysOfMonth(date: Date, daysAmount: number): MonthDay[] {
+    const monthDays: MonthDay[] = [];
     for (let dayCounter = 1; dayCounter <= daysAmount; dayCounter++) {
       const [dayNumber, weekDay] = new Date(
         date.getFullYear(),
@@ -32,8 +40,10 @@ export default class Utils {
     return monthDays;
   }
 
-  public static getUserVacations(vacations: UserVacation[]): VacationType[] {
-    const userVacations: VacationType[] = [];
+  public static getParsedVacations(
+    vacations: UserVacation[]
+  ): ParsedVacationType[] {
+    const userVacations: ParsedVacationType[] = [];
     vacations.forEach((vacation) => {
       userVacations.push({
         startDay: Number.parseInt(vacation.startDate.split('.')[0], 10),
@@ -48,10 +58,11 @@ export default class Utils {
 
   public static vacLengthCalc(
     calcType: string,
-    vacationItem: VacationType,
+    vacationItem: ParsedVacationType,
     currentDate: Date
-  ): number {
+  ): CalcType {
     let vacationLength = 0;
+    let startDay = 0;
     switch (calcType) {
       case 'start':
         vacationLength =
@@ -62,76 +73,77 @@ export default class Utils {
           ).getDate() +
           1 -
           vacationItem.startDay;
+        startDay = vacationItem.startDay;
         break;
 
       case 'end':
         vacationLength = vacationItem.endDay;
+        startDay = 1;
         break;
 
       case 'regular':
         vacationLength = vacationItem.endDay + 1 - vacationItem.startDay;
+        startDay = vacationItem.startDay;
         break;
 
       default:
         break;
     }
-    return vacationLength;
+    return { startDay, vacationLength };
   }
 
-  public static getSingleVacation(
-    cellNumber: number,
-    userVacations: VacationType[],
+  public static getCurrentMonthVacation(
+    userVacations: UserVacation[],
     currentDate: Date
-  ): SingleVacationType | undefined {
-    let singleVacation: SingleVacationType | undefined;
+  ): ResultVacation | undefined {
+    let singleVacation: ResultVacation | undefined;
     singleVacation = undefined;
+    const parsedUserVacations = this.getParsedVacations(userVacations);
 
-    userVacations.forEach((vacationItem) => {
+    parsedUserVacations.forEach((vacationItem) => {
       // * START DAY AND END DAY OF VACATION ARE IN DIFFERENT MONTHS
       if (vacationItem.startMonth !== vacationItem.endMonth) {
         // *CALCULATING FROM START DAY TO LAST MONTH DAY
         if (vacationItem.startMonth === currentDate.getMonth() + 1) {
-          if (cellNumber === vacationItem.startDay) {
-            singleVacation = {
-              vacationLength: this.vacLengthCalc(
-                'start',
-                vacationItem,
-                currentDate
-              ),
-              vacationType: vacationItem.type,
-              labelDirection: 'left',
-            };
-          }
+          // tslint:disable-next-line:one-variable-per-declaration
+          const { startDay, vacationLength } = this.vacLengthCalc(
+            'start',
+            vacationItem,
+            currentDate
+          );
+          singleVacation = {
+            startDay,
+            vacationLength,
+            vacationType: vacationItem.type,
+          };
         }
 
         // *CALCULATING FROM FIRST MONTH DAY TO END DAY
         if (vacationItem.endMonth === currentDate.getMonth() + 1) {
-          if (cellNumber === vacationItem.endDay) {
-            singleVacation = {
-              vacationLength: this.vacLengthCalc(
-                'end',
-                vacationItem,
-                currentDate
-              ),
-              vacationType: vacationItem.type,
-              labelDirection: 'right',
-            };
-          }
+          const { startDay, vacationLength } = this.vacLengthCalc(
+            'end',
+            vacationItem,
+            currentDate
+          );
+          singleVacation = {
+            startDay,
+            vacationLength,
+            vacationType: vacationItem.type,
+          };
         }
       }
       // * REGULAR VACATION LENGTH CALCULATING
       else if (vacationItem.startMonth === currentDate.getMonth() + 1) {
-        if (cellNumber === vacationItem.startDay) {
-          singleVacation = {
-            vacationLength: this.vacLengthCalc(
-              'regular',
-              vacationItem,
-              currentDate
-            ),
-            vacationType: vacationItem.type,
-            labelDirection: 'left',
-          };
-        }
+        const { startDay, vacationLength } = this.vacLengthCalc(
+          'regular',
+          vacationItem,
+          currentDate
+        );
+        singleVacation = {
+          startDay,
+          vacationLength,
+          vacationType: vacationItem.type,
+        };
       }
     });
 
