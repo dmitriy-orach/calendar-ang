@@ -12,17 +12,16 @@ import { UserComponent } from './components/user/user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalWindowComponent } from './components/modal-window/modal-window.component';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     CalendarTableComponent,
-
     TeamComponent,
     UserComponent,
-
     ModalWindowComponent,
   ],
   imports: [

@@ -1,30 +1,29 @@
-import { Team } from "./../../types.d";
-import { Component, OnInit, Inject } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { format } from "date-fns/fp";
+import { Team } from '../../types';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { format } from 'date-fns/fp';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   AbstractControl,
-} from "@angular/forms";
+} from '@angular/forms';
 
 @Component({
-
-  selector: "app-modal-window",
-  templateUrl: "./modal-window.component.html",
-  styleUrls: ["./modal-window.component.scss"],
+  selector: 'app-modal-window',
+  templateUrl: './modal-window.component.html',
+  styleUrls: ['./modal-window.component.scss'],
 })
 export class ModalWindowComponent implements OnInit {
   form: FormGroup = this.fb.group({
-    team: ["", Validators.required],
-    userName: ["", Validators.required],
-    from: ["", Validators.required],
-    to: ["", Validators.required],
-    type: ["Paid", Validators.required],
+    team: ['', Validators.required],
+    userName: ['', Validators.required],
+    from: ['', Validators.required],
+    to: ['', Validators.required],
+    type: ['Paid', Validators.required],
   });
 
-  selectedDays: number;
+  selectedDays!: number;
 
   constructor(
     public dialogRef: MatDialogRef<ModalWindowComponent>,
@@ -41,20 +40,19 @@ export class ModalWindowComponent implements OnInit {
     });
   }
 
-  closeDialog() {
-
+  closeDialog(): void {
     this.dialogRef.close();
   }
 
-  send() {
+  send(): void {
     if (this.form.invalid) {
       this.teamControl.markAsTouched();
       this.userNameControl.markAsTouched();
       this.typeControl.markAsTouched();
       return;
     }
-    const from = format("d.MM.y", new Date(this.form.value.from));
-    const to = format("d.MM.y", new Date(this.form.value.to));
+    const from = format('d.MM.y', new Date(this.form.value.from));
+    const to = format('d.MM.y', new Date(this.form.value.to));
     this.dialogRef.close({
       ...this.form.value,
       teamName: this.teamControl.value.name,
@@ -64,22 +62,22 @@ export class ModalWindowComponent implements OnInit {
   }
 
   get fromControl(): AbstractControl {
-    return this.form.get("from") as AbstractControl;
+    return this.form.get('from') as AbstractControl;
   }
 
   get toControl(): AbstractControl {
-    return this.form.get("to") as AbstractControl;
+    return this.form.get('to') as AbstractControl;
   }
 
   get userNameControl(): AbstractControl {
-    return this.form.get("userName") as AbstractControl;
+    return this.form.get('userName') as AbstractControl;
   }
 
   get typeControl(): AbstractControl {
-    return this.form.get("type") as AbstractControl;
+    return this.form.get('type') as AbstractControl;
   }
 
   get teamControl(): AbstractControl {
-    return this.form.get("team") as AbstractControl;
+    return this.form.get('team') as AbstractControl;
   }
 }
