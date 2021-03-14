@@ -9,9 +9,9 @@ import { TeamDataService } from '../../services/team-data/team-data.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-calendar-table',
-  templateUrl: './calendar-table.component.html',
-  styleUrls: ['./calendar-table.component.scss'],
+  selector: "app-calendar-table",
+  templateUrl: "./calendar-table.component.html",
+  styleUrls: ["./calendar-table.component.scss"],
 })
 export class CalendarTableComponent implements OnInit, OnDestroy {
   constructor(
@@ -25,7 +25,7 @@ export class CalendarTableComponent implements OnInit, OnDestroy {
   daysAmount!: number;
   departmentTeams!: TeamsData;
   dateSubscription!: Subscription;
-  teamsDataSubscription!: Subscription;
+  teamsDataSubscription: Subscription | undefined;
 
   ngOnInit(): void {
     this.dateSubscription = this.dateService.currentDate.subscribe({
@@ -39,6 +39,14 @@ export class CalendarTableComponent implements OnInit, OnDestroy {
       },
     });
 
+    this.getData();
+  }
+
+  getData() {
+    if (this.teamsDataSubscription) {
+      this.teamsDataSubscription.unsubscribe();
+      this.teamsDataSubscription = undefined;
+    }
     this.teamsDataSubscription = this.teamsDataService
       .putTeamsData()
       .subscribe({
@@ -51,10 +59,19 @@ export class CalendarTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
-    this.teamsDataSubscription.unsubscribe();
+    if (this.teamsDataSubscription) {
+      this.teamsDataSubscription.unsubscribe();
+    }
   }
 
   onCreate(): void {
-    this.dialog.open(ModalWindowComponent);
+    const dialogRef = this.dialog.open(ModalWindowComponent, {
+      data: this.departmentTeams.teams,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.teamsDataService.addUserVacation(result).subscribe((data) => {
+        this.getData();
+      });
+    });
   }
 }
