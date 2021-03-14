@@ -1,3 +1,4 @@
+import { ModalWindowComponent } from '../modal-window/modal-window.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -5,6 +6,7 @@ import { MonthDay, TeamsData } from 'src/app/types';
 import Utils from 'src/app/utils/Utils';
 import { CurrentDateService } from '../../services/current-date/current-date.service';
 import { TeamDataService } from '../../services/team-data/team-data.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-calendar-table',
@@ -14,7 +16,8 @@ import { TeamDataService } from '../../services/team-data/team-data.service';
 export class CalendarTableComponent implements OnInit, OnDestroy {
   constructor(
     private dateService: CurrentDateService,
-    private teamsDataService: TeamDataService
+    private teamsDataService: TeamDataService,
+    private dialog: MatDialog
   ) {}
 
   currentTableDate!: Date;
@@ -49,5 +52,9 @@ export class CalendarTableComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
     this.teamsDataSubscription.unsubscribe();
+  }
+
+  onCreate(): void {
+    this.dialog.open(ModalWindowComponent);
   }
 }
