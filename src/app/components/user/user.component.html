@@ -1,0 +1,37 @@
+<div
+  class="calendar-body__row"
+  [ngClass]="[
+    'team' + (teamCounter + 1),
+    'teamColor' + ((teamCounter % 4) + 1),
+    memberCounter === team.members.length - 1 ? 'team-last-row' : ''
+  ]"
+>
+  <div class="calendar-body__column calendar-body__column--first-column">
+    {{ member.name }}
+  </div>
+  <div
+    *ngFor="let day of monthDays; index as cellCounter"
+    class="calendar-body__column"
+    [ngClass]="{
+      weekend: day.isWeekend
+    }"
+  >
+    <ng-template
+      [ngIf]="currentVacation && currentVacation.startDay - 1 === cellCounter"
+    >
+      <div
+        [ngClass]="[
+          currentVacation.vacationType === 'Paid' ? 'paid-day' : 'unpaid-day'
+        ]"
+        [ngStyle]="{
+          'width.px': this.currentVacation.vacationLength * 32 - 3
+        }"
+      >
+        {{ currentVacation.vacationType === "Paid" ? "Pd" : "UnPd" }}
+      </div>
+    </ng-template>
+  </div>
+  <div class="calendar-body__column calendar-body__column--sum-cell">
+    <span *ngIf="currentVacation">{{ currentVacation.vacationLength }}</span>
+  </div>
+</div>

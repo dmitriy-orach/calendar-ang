@@ -4,16 +4,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-modal-window',
   templateUrl: './modal-window.component.html',
-  styleUrls: ['./modal-window.component.scss']
+  styleUrls: ['./modal-window.component.scss'],
 })
 export class ModalWindowComponent implements OnInit {
+  constructor(public dialogRef: MatDialogRef<ModalWindowComponent>) {}
 
-  constructor(public dialogRef: MatDialogRef<ModalWindowComponent>) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  closeDialog() {
+  closeDialog(): void {
     this.dialogRef.close();
   }
 }

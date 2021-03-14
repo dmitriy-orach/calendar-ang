@@ -1,12 +1,12 @@
-import { ModalWindowComponent } from './../modal-window/modal-window.component';
+import { ModalWindowComponent } from '../modal-window/modal-window.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DayType, TeamsDataType } from 'src/app/types';
+import { MonthDay, TeamsData } from 'src/app/types';
 import Utils from 'src/app/utils/Utils';
 import { CurrentDateService } from '../../services/current-date/current-date.service';
 import { TeamDataService } from '../../services/team-data/team-data.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-calendar-table',
@@ -21,9 +21,9 @@ export class CalendarTableComponent implements OnInit, OnDestroy {
   ) {}
 
   currentTableDate!: Date;
-  monthDays!: DayType[];
+  monthDays!: MonthDay[];
   daysAmount!: number;
-  departmentTeams!: TeamsDataType;
+  departmentTeams!: TeamsData;
   dateSubscription!: Subscription;
   teamsDataSubscription!: Subscription;
 
@@ -43,9 +43,9 @@ export class CalendarTableComponent implements OnInit, OnDestroy {
       .putTeamsData()
       .subscribe({
         next: (data) => {
-          this.departmentTeams = data as TeamsDataType;
+          this.departmentTeams = data as TeamsData;
         },
-        error: () => alert('Data was not loaded!'),
+        error: () => console.log('Data was not loaded!'),
       });
   }
 

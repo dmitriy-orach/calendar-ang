@@ -1,42 +1,22 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DayType, SingleVacationType, Team } from 'src/app/types';
-import { CurrentDateService } from '../../services/current-date/current-date.service';
-import { Subscription } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { MonthDay, Team } from 'src/app/types';
 
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html',
   styleUrls: ['./team.component.scss'],
 })
-export class TeamComponent implements OnInit, OnDestroy {
-  @Input() counter!: number;
+export class TeamComponent {
+  @Input() teamCounter!: number;
   @Input() team!: Team;
-  @Input() monthDays!: DayType[];
+  @Input() monthDays!: MonthDay[];
+  @Input() currentDate!: Date;
 
   isOpen = true;
-  userVacation!: SingleVacationType;
-  currentDate!: Date;
-  dateSubscription!: Subscription;
 
-  constructor(private dateService: CurrentDateService) {}
-
-  ngOnInit(): void {
-    this.dateSubscription = this.dateService.currentDate.subscribe({
-      next: (date: Date) => {
-        this.currentDate = date;
-      },
-    });
-  }
+  constructor() {}
 
   toggleIsOpen(): void {
     this.isOpen = !this.isOpen;
-  }
-
-  addVacation(newVacation: SingleVacationType): void {
-    this.userVacation = newVacation;
-  }
-
-  ngOnDestroy(): void {
-    this.dateSubscription.unsubscribe();
   }
 }

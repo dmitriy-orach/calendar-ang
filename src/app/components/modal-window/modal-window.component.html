@@ -1,37 +1,43 @@
 <div class="modalWindow">
-    <div>
-        <header class="modalWindow__header">
-            <h3>Vacation Request</h3>
-            <span>8 Days</span>
-        </header>
-        <div class="modalWindow__body">
-            <div class="choose">
-                <span class="headText">Dates</span>
-                <input name="startDate" type="date"/>
-                <input name="endDate" type="date"/>
-            </div>
-            <div class="choose">
-                <span lass="headText">Team</span>
-                <select name="Team" id="">
-                    <option value="">Team name</option>
-                </select>
-            </div>
-            <div class="choose">
-                <span lass="headText">User</span>
-                <select name="User" id="">
-                    <option value="">User name</option>
-                </select>
-            </div>
-            <div class="choose">
-                <span lass="headText">Vac Type</span>
-                <select name="Vac" id="">
-                    <option value="">Paid Day Off (PD)</option>
-                </select>
-            </div>
-            <div class="buttonsBlock">
-                <button id="close" class="buttonsBlock__Cancel" (click)="closeDialog()">Cancel</button>
-                <button class="buttonsBlock__Send">Send</button>
-            </div>
-        </div>
+  <div>
+    <header class="modalWindow__header">
+      <h3>Vacation Request</h3>
+      <span>8 Days</span>
+    </header>
+    <div class="modalWindow__body">
+      <div class="choose">
+        <span class="headText">Dates</span>
+        <label>
+          <input name="startDate" type="date" />
+        </label>
+        <label>
+          <input name="endDate" type="date" />
+        </label>
+      </div>
+      <div class="choose">
+        <span class="headText">Team</span>
+        <select name="Team">
+          <option value="">Team name</option>
+        </select>
+      </div>
+      <div class="choose">
+        <span class="headText">User</span>
+        <select name="User">
+          <option value="">User name</option>
+        </select>
+      </div>
+      <div class="choose">
+        <span class="headText">Vac Type</span>
+        <select name="Vac">
+          <option value="">Paid Day Off (PD)</option>
+        </select>
+      </div>
+      <div class="buttonsBlock">
+        <button id="close" class="buttonsBlock__Cancel" (click)="closeDialog()">
+          Cancel
+        </button>
+        <button class="buttonsBlock__Send">Send</button>
+      </div>
     </div>
+  </div>
 </div>
