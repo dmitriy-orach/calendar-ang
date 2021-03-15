@@ -18,7 +18,7 @@
           <option *ngFor="let d of data" [ngValue]="d">{{ d.name }}</option>
         </select>
 
-        <div *ngIf="teamControl.touched && teamControl.invalid">
+        <div class="err" *ngIf="teamControl.touched && teamControl.invalid">
           Select team please
         </div>
       </div>
@@ -32,7 +32,7 @@
             {{ n.name }}
           </option>
         </select>
-        <div *ngIf="userNameControl.touched && userNameControl.invalid">
+        <div class="err" *ngIf="userNameControl.touched && userNameControl.invalid">
           Select user please
         </div>
       </div>
@@ -42,7 +42,7 @@
           <option value="Paid">Paid Day Off (PD)</option>
           <option value="UnPaid">Unpaid Day Off (UPD)</option>
         </select>
-        <div *ngIf="typeControl.touched && typeControl.invalid">
+        <div class="err" *ngIf="typeControl.touched && typeControl.invalid">
           Select type please
         </div>
       </div>

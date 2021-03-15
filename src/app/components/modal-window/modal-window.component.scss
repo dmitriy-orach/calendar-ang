@@ -58,6 +58,13 @@
                 margin-bottom: 5px;
             }
 
+            .choose input,
+            .choose input:active,
+            .choose input:focus{
+                border: none;
+                outline: none;
+            }
+
             .choose:not(:last-child){
                 margin-bottom: 10px;
             }
@@ -105,4 +112,8 @@
                 }
             }
         }
+}
+
+.err{
+    color: rgb(185, 0, 0);
 }
